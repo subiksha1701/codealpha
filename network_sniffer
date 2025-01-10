@@ -1,0 +1,33 @@
+basic network packet sniffer -code alpha
+
+import scapy.all as scapy
+from scapy.layers import http
+
+
+def sniffing(interface):
+    """
+    Sniff network traffic on the given interface.
+    """
+    print(f"Sniffing on interface: {interface}")
+    scapy.sniff(iface=interface, store=False, prn=process_packet)
+
+
+def process_packet(packet):
+    """
+    Process captured packets and print HTTP request information if available.
+    """
+    # Check if the packet contains an HTTP request layer
+    if packet.haslayer(http.HTTPRequest):
+        # Extract the host information (URL)
+        host = packet[http.HTTPRequest].Host.decode() if packet[http.HTTPRequest].Host else "Unknown Host"
+        path = packet[http.HTTPRequest].Path.decode() if packet[http.HTTPRequest].Path else "Unknown Path"
+        print(f"[+] HTTP Request to: {host}{path}")
+
+        # Optional: Check if there's any raw data (e.g., form submissions)
+        if packet.haslayer(scapy.Raw):
+            raw_data = packet[scapy.Raw].load.decode(errors="ignore")
+            print(f"[+] Raw Data: {raw_data}")
+
+
+# Replace 'Wi-Fi' with the correct interface name (use ipconfig or ifconfig to find it)
+sniffing('Wi-Fi')

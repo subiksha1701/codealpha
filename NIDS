@@ -1,0 +1,88 @@
+NIDS USING SNORT -CODE ALPHA 
+To document how you worked on your NIDS project using Suricata and pushed it to GitHub, you can structure it as follows in your repository's README file:
+
+---
+
+# Network Intrusion Detection System (NIDS) using Suricata
+
+This repository contains the implementation and setup of a Network Intrusion Detection System (NIDS) using Suricata, an open-source IDS/IPS engine. The system is designed to capture and analyze network traffic, detect malicious activity, and generate alerts based on pre-defined security rules.
+
+## How I Worked on the Project
+
+1. *Initial Setup*
+   - Installed Suricata on my system to enable network traffic capture and analysis.
+   - Configured the Suricata configuration file (/etc/suricata/suricata.yaml) to specify network interfaces and other necessary settings.
+
+2. *Capturing Network Traffic*
+   - Started Suricata using the command:
+     bash
+     sudo suricata -i eth0
+     
+     This captures traffic on the specified network interface (eth0 in this case).
+
+3. *Configuring Suricata to Monitor Traffic*
+   - Suricata was configured to monitor packets, identify various protocols (like TCP, UDP, ICMP), and log the traffic.
+   - It uses the afpacket capture method to intercept packets at the kernel level.
+   - Set up logging to output to specific directories, such as:
+     yaml
+     logging:
+       default-log-level: info
+       outputs:
+         - file:
+             filename: /var/log/suricata/suricata.log
+             append: yes
+     
+
+4. *Traffic Analysis*
+   - Once Suricata starts running, it analyzes incoming and outgoing traffic, categorizing it into types like HTTP, TLS, DNS, etc.
+   - The output includes:
+     - Packet statistics
+     - Session details (TCP, UDP, etc.)
+     - Application layer protocols (HTTP, DNS, etc.)
+
+5. *Handling Alerts and Events*
+   - Suricata is set up to generate alerts when suspicious activities are detected based on rules.
+   - Alerts were captured in a specified log file, and I monitored them periodically to track suspicious activities.
+
+6. *Stopping Suricata*
+   - The process can be stopped at any time by pressing Ctrl + C in the terminal, which halts the traffic capture and analysis.
+
+7. *GitHub Integration*
+   - Once the system was set up and the traffic analysis was successfully running, I pushed the project to GitHub.
+   - Included the following in my repository:
+     - Suricata configuration files
+     - Sample network traffic capture logs
+     - Instructions for setting up Suricata and running the system
+
+## How to Set Up the System
+
+1. *Install Suricata*
+   Follow the instructions on [Suricata's installation guide](https://suricata.io/download/) for your platform (Ubuntu, CentOS, etc.).
+
+2. *Configure Suricata*
+   Edit the suricata.yaml file to set the desired network interfaces and logging options.
+
+3. *Start Suricata*
+   Run the following command to start capturing traffic on the specified interface:
+   bash
+   sudo suricata -i <interface-name>
+   
+
+4. *Monitor the Output*
+   Suricata will output logs to the /var/log/suricata/ directory. You can monitor these logs for detected events.
+
+5. *Stop Suricata*
+   To stop Suricata, press Ctrl + C.
+
+## Files Included
+- suricata.yaml: Suricata configuration file.
+- logs/: Folder containing captured network traffic logs.
+- README.md: Documentation for setting up and using the system.
+
+## Conclusion
+
+This project helped me gain hands-on experience in network traffic analysis and intrusion detection using Suricata. I learned how to configure the tool to detect network-based threats and analyze packets in real-time.
+
+---
+
+This should provide a detailed explanation of how you worked on your NIDS project using Suricata and how others can set it up and use it based on your work.
